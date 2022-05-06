@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
+
+* {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.wrap-class {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  width: 1200px;
+  margin: auto;
+}
