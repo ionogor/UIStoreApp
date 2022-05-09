@@ -1,5 +1,24 @@
+body {
+  background-image: linear-gradient(
+    to right bottom,
+    #b91eda,
+    #a02ae0,
+    #8234e5,
+    #5d3be8,
+    #1241eb
+  );
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 .wrapper {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin: 10px;
+}
+.item {
+  margin: 10px;
+  padding: 10px;
 }

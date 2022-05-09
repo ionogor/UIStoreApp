@@ -13,6 +13,7 @@ type Products = {
   price: number;
   stock: number;
   photoPath: string;
+  id: string;
 };
 
 type ProductsParams = {
@@ -46,12 +47,12 @@ const Products = () => {
     <>
       <div className="wrapper">
         {catalogs?.products.map((e) => (
-          <Card sx={{ maxWidth: 345 }}>
-            <CardActionArea>
+          <Card className="item" sx={{ maxWidth: 345 }}>
+            <CardActionArea href={`/product/${e.id}`}>
               <CardMedia
                 component="img"
                 height="140"
-                image="/static/images/cards/contemplative-reptile.jpg"
+                image="/img/laptop.png"
                 alt="green iguana"
               />
               <CardContent>
