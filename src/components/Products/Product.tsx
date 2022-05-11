@@ -1,5 +1,8 @@
+import { Card } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
+import { addToCart } from "../../actions/action";
 import "./product.css";
 type ProductsParams = {
   id: string;
@@ -15,6 +18,7 @@ type Product = {
 
 function GetProduct(id: string) {
   const [product, setProduct] = useState<Product | null>();
+
   useEffect(() => {
     async function getProduct() {
       const response = await fetch(`http://localhost:7080/product/${id}`);
@@ -30,9 +34,15 @@ function GetProduct(id: string) {
 }
 
 const Product = () => {
+  const [cart, setCart] = useState<Product[] | null>([]);
   const params = useParams() as ProductsParams;
-  const result = GetProduct(params.id);
-  console.log(result);
+  const product = GetProduct(params.id);
+  console.log(product);
+
+  const addCard = (product: any) => {
+    setCart([, product]);
+    console.log(cart);
+  };
 
   return (
     <>
@@ -41,9 +51,9 @@ const Product = () => {
           <div className="card__body">
             <div className="half">
               <div className="featured_text">
-                <h1>{result?.title}</h1>
-                <p className="sub">{result?.catalogName}</p>
-                <p className="price">{result?.price} $</p>
+                <h1>{product?.title}</h1>
+                <p className="sub">{product?.catalogName}</p>
+                <p className="price">{product?.price} $</p>
               </div>
               <div className="image">
                 <img src="/img/laptop.png" alt="" />
@@ -52,7 +62,7 @@ const Product = () => {
 
             <div className="half">
               <div className="description">
-                <p>{result?.description}</p>
+                <p>{product?.description}</p>
               </div>
               <span className="stock">
                 <i className="fa fa-pen"></i> In stock
@@ -61,7 +71,9 @@ const Product = () => {
           </div>
           <div className="card__footer">
             <div className="action">
-              <button type="button">Add to cart</button>
+              <button onClick={() => addCard({ product })} type="button">
+                Add to cart
+              </button>
             </div>
           </div>
         </div>

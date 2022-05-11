@@ -1,12 +1,12 @@
 body {
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to right bottom,
     #b91eda,
     #a02ae0,
     #8234e5,
     #5d3be8,
     #1241eb
-  );
+  ); */
   height: 100%;
   margin: 0;
   background-repeat: no-repeat;
@@ -21,4 +21,7 @@ body {
 .item {
   margin: 10px;
   padding: 10px;
+}
+.pagination {
+  justify-content: center;
 }

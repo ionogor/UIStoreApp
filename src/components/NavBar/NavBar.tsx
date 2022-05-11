@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -9,8 +9,8 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import Sidebar from "../Sidebar/Sidebar";
-import { Category, WindowSharp } from "@mui/icons-material";
 
+import LocalGroceryStoreRoundedIcon from "@mui/icons-material/LocalGroceryStoreRounded";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -55,8 +55,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
+  const [URL, setURL] = useState(window.location.href);
 
-  console.log(open);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -88,6 +88,7 @@ const NavBar = () => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
+            <LocalGroceryStoreRoundedIcon></LocalGroceryStoreRoundedIcon>
           </Toolbar>
         </AppBar>
       </Box>

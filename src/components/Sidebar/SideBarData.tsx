@@ -29,7 +29,7 @@ export const SideBarData = [
   {
     title: "Sign-In",
     icon: <LoginIcon />,
-    link: "/LoginIcon",
+    link: "/sign",
   },
   {
     title: "Register",

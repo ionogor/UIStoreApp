@@ -41,3 +41,6 @@
   flex: 50%;
   text-align: initial;
 }
+.wrapper-side-bar {
+  z-index: 1;
+}
