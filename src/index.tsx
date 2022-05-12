@@ -4,13 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes } from "react-router-dom";
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import CardReducer from "./reducers/CardReducer";
-//const store = createStore(CardReducer);
 
-//console.log("Store", store.getState());
-import ProductContext from "./components/Context/ProductContext";
+import ProductProvider from "./components/Context/ProductContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,9 +16,9 @@ function Main() {
   return (
     <React.StrictMode>
       <BrowserRouter>
-        <ProductContext.Provider value={{ productBasket, setProductBasket }}>
+        <ProductProvider>
           <App />
-        </ProductContext.Provider>
+        </ProductProvider>
       </BrowserRouter>
     </React.StrictMode>
   );

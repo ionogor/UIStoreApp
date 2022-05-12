@@ -4,20 +4,10 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { addToCart } from "../../actions/action";
 import "./product.css";
-type ProductsParams = {
-  id: string;
-};
-type Product = {
-  description: string;
-  photoPath: string;
-  price: number;
-  stock: number;
-  title: string;
-  catalogName: string;
-};
+import { Product, ProductsParams } from "../../Types/Types";
 
 function GetProduct(id: string) {
-  const [product, setProduct] = useState<Product | null>();
+  const [product, setProduct] = useState<Product>();
 
   useEffect(() => {
     async function getProduct() {
@@ -33,17 +23,10 @@ function GetProduct(id: string) {
   return product;
 }
 
-const Product = () => {
-  const [cart, setCart] = useState<Product[] | null>([]);
+const OneProduct = () => {
   const params = useParams() as ProductsParams;
   const product = GetProduct(params.id);
   console.log(product);
-
-  const addCard = (product: any) => {
-    setCart([, product]);
-    console.log(cart);
-  };
-
   return (
     <>
       <main>
@@ -71,9 +54,7 @@ const Product = () => {
           </div>
           <div className="card__footer">
             <div className="action">
-              <button onClick={() => addCard({ product })} type="button">
-                Add to cart
-              </button>
+              <button type="button">Add to cart</button>
             </div>
           </div>
         </div>
@@ -82,4 +63,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default OneProduct;

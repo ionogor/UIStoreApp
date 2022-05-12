@@ -9,8 +9,11 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import Sidebar from "../Sidebar/Sidebar";
-
-import LocalGroceryStoreRoundedIcon from "@mui/icons-material/LocalGroceryStoreRounded";
+import Button from "@mui/material/Button";
+import ShopCard from "../ShopCard/ShopCard";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import DeleteIcon from "@mui/icons-material/Delete";
+import "./Nav.css";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -55,7 +58,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
-  const [URL, setURL] = useState(window.location.href);
 
   return (
     <>
@@ -68,9 +70,11 @@ const NavBar = () => {
               color="inherit"
               aria-label="open drawer"
               sx={{ mr: 2 }}
+              onClick={() => setOpen(!open)}
             >
-              <MenuIcon onClick={() => setOpen(!open)} />
+              <MenuIcon />
             </IconButton>
+
             <Typography
               variant="h6"
               noWrap
@@ -88,7 +92,17 @@ const NavBar = () => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
-            <LocalGroceryStoreRoundedIcon></LocalGroceryStoreRoundedIcon>
+            <IconButton>
+              <Button
+                variant="outlined"
+                startIcon={
+                  <ShoppingBasketIcon
+                    style={{ color: "blue", marginRight: 0 }}
+                  />
+                }
+                onClick={() => console.log("Button click")}
+              ></Button>
+            </IconButton>
           </Toolbar>
         </AppBar>
       </Box>

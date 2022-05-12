@@ -8,12 +8,10 @@ import SignIn from "./components/SignIn/SignIn";
 import Contacts from "./components/Contacts/Contacs";
 import About from "./components/Abouts/About";
 import Register from "./components/Register/Register";
-import Product from "./components/Products/Product";
+import OneProduct from "./components/Products/OneProduct";
 import Cabinet from "./components/Cabinet/Cabinet";
 import ShopCard from "./components/ShopCard/ShopCard";
 import Catalogs from "./components/Catalogs/Catalogs";
-
-import { useContext } from "react";
 function App() {
   return (
     <div className="App">
@@ -23,7 +21,7 @@ function App() {
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/catalogs" element={<Catalogs />} />
         <Route path="/catalogs/:id/products" element={<Products />} />
-        <Route path="/product/:id" element={<Product />} />
+        <Route path="/product/:id" element={<OneProduct />} />
         <Route path="/sign" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cabinet" element={<Cabinet />} />

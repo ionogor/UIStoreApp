@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -8,16 +8,9 @@ import { CardActionArea } from "@mui/material";
 import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import "./products.css";
-import ProductContext from "../Context/ProductContext";
+import { useProductContext } from "../Context/ProductContext";
 
-type Products = {
-  title: string;
-  description: string;
-  price: number;
-  stock: number;
-  photoPath: string;
-  id: string;
-};
+import { Product } from "../../Types/Types";
 
 type ProductsParams = {
   id: string;
@@ -25,18 +18,17 @@ type ProductsParams = {
 type Catalogs = {
   pages: number;
   currentPage: number;
-  productListDtos: Products[];
+  productListDtos: Product[];
 };
 
 const Products = () => {
-  const { productBasket, setProductBasket } = useContext(ProductContext);
-  function useGetProducts(id: string) {
-    const [products, setProducts] = useState<Catalogs | null>(null);
+  const { cartProduct, setCartProduct } = useProductContext();
 
-    console.log(productBasket);
+  console.log("CartProduct", cartProduct);
+  function useGetProducts(id: string) {
+    const [products, setProducts] = useState<Catalogs>();
     useEffect(() => {
       async function getProducts() {
-        // const response = await fetch(`http://localhost:7080/Catalog/${id}`);
         const response = await fetch(
           `http://localhost:7080/productpage/${page}?id=${id}`
         );
@@ -48,14 +40,35 @@ const Products = () => {
 
     return products;
   }
+
+  function handleAddCart(product: Product) {
+    const exist = cartProduct.find((x) => x.id === product.id);
+    if (exist) {
+      setCartProduct(
+        cartProduct.map((x) =>
+          x.id === product.id ? { ...exist, Quantity: exist.Quantity + 1 } : x
+        )
+      );
+    } else {
+      setCartProduct([
+        ...cartProduct,
+        {
+          description: product.description,
+          photoPath: product.photoPath,
+          price: product.price,
+          stock: product.stock,
+          title: product.title,
+          catalogName: product.catalogName,
+          Quantity: 1,
+          id: product.id,
+        } as Product,
+      ]);
+    }
+  }
+
   const [page, setPage] = useState(1);
   const params = useParams() as ProductsParams;
   const products = useGetProducts(params.id);
-
-  function handleAddCart(product: any) {
-    setProductBasket(product);
-    console.log(productBasket);
-  }
 
   return (
     <>
