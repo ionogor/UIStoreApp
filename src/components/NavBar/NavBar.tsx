@@ -92,22 +92,11 @@ const NavBar = () => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
-            <IconButton>
-              <Button
-                variant="outlined"
-                startIcon={
-                  <ShoppingBasketIcon
-                    style={{ color: "blue", marginRight: 0 }}
-                  />
-                }
-                onClick={() => console.log("Button click")}
-              ></Button>
-            </IconButton>
           </Toolbar>
         </AppBar>
       </Box>
 
-      {open && <Sidebar />}
+      {open && <Sidebar open={open} setOpen={setOpen} />}
     </>
   );
 };

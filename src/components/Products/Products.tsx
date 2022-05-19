@@ -1,30 +1,31 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, Link } from "@mui/material";
 import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import "./products.css";
 import { useProductContext } from "../Context/ProductContext";
-
+import { ProductsParams, Catalogs } from "../../Types/Types";
 import { Product } from "../../Types/Types";
 
-type ProductsParams = {
-  id: string;
-};
-type Catalogs = {
-  pages: number;
-  currentPage: number;
-  productListDtos: Product[];
-};
+// type ProductsParams = {
+//   id: string;
+// };
+// type Catalogs = {
+//   pages: number;
+//   currentPage: number;
+//   productListDtos: Product[];
+// };
 
 const Products = () => {
   const { cartProduct, setCartProduct } = useProductContext();
 
   console.log("CartProduct", cartProduct);
+
   function useGetProducts(id: string) {
     const [products, setProducts] = useState<Catalogs>();
     useEffect(() => {
@@ -100,6 +101,7 @@ const Products = () => {
             </Button>
           </Card>
         ))}{" "}
+        <Link href={"/shop-card"}>ShopCart</Link>
       </div>
       <Pagination
         className="pagination"

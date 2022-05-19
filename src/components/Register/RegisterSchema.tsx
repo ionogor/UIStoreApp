@@ -1,18 +1,15 @@
 import * as yup from "yup";
 
-const schema = yup.object().shape({
-  name: yup
-    .string()
-    .required("Name cannot be empty.")
-    .min(3, "Name must have at least 3 chars."),
-  phone: yup
+let schema = yup.object().shape({
+  name: yup.string().required().min(3, "Name cannot be emty"),
+  phoneNumber: yup
     .string()
     .required("Phone cannot be empty")
     .min(9, "Min 9 characters"),
-  email: yup
-    .string()
-    .required("Email cannot be empty.")
-    .email("Invalid email."),
+  address: yup.string().required("Address cannot be emty"),
+  city: yup.string().required("City cannot be emty"),
+  zipCode: yup.string().required("Zip code cannot be emty"),
+  country: yup.string().required("City cannot be emty"),
   password: yup
     .string()
     .required("Password cannot be empty.")
@@ -21,6 +18,5 @@ const schema = yup.object().shape({
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Password must match"),
-  ////terms: yup.boolean().oneOf([true], "Must Accept Terms and Conditions"),
 });
 export default schema;

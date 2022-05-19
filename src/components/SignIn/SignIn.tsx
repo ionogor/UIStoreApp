@@ -37,7 +37,7 @@ const SignIn = () => {
     });
 
     console.log("response: ", response);
-    ////window.location.href = "/";
+    window.location.href = "/";
   };
 
   return (

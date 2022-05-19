@@ -25,6 +25,7 @@ export default function ProductProvider({ children }: { children: ReactNode }) {
 
   const handleSetCartProduct = (products: Product[]) =>
     setCartProduct(products);
+
   return (
     <ProductContext.Provider value={{ cartProduct, setCartProduct }}>
       {children}

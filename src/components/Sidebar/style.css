@@ -28,9 +28,10 @@
   color: white;
 }
 .link:hover {
-  background-color: tomato;
+  background-color: #1a83ff;
   transition: 300ms;
   cursor: pointer;
+  border-radius: 5px;
 }
 .icon {
   flex: 20%;

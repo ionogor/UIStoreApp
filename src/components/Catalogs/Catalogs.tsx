@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect, useContext, createContext } from "react";
 
 import "./catalog.css";
+import { GetCatalogProduct } from "../../FetchDataAPI/Api";
 
 export type Catalog = {
   id: number;
@@ -17,26 +18,8 @@ export type Catalog = {
 
 const Catalogs = () => {
   const [loading, setLoading] = useState(false);
-  function useGetCatalogs() {
-    const [catalogs, setCatalogs] = useState<Catalog[]>();
 
-    console.log("test");
-    const params = useParams();
-    console.log(params.id);
-
-    useEffect(() => {
-      async function getCatalogs() {
-        const response = await fetch("http://localhost:7080/Catalog?page=1");
-        const result = await response.json();
-        setCatalogs(result);
-        console.log("result", result);
-      }
-      getCatalogs();
-    }, []);
-
-    return catalogs;
-  }
-  const catalogs = useGetCatalogs();
+  const catalogs = GetCatalogProduct();
 
   const myStyle = {
     width: "200px",

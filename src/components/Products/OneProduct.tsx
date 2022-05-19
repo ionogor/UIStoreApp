@@ -1,10 +1,11 @@
-import { Card } from "@mui/material";
+import { Button, Card } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { addToCart } from "../../actions/action";
 import "./product.css";
 import { Product, ProductsParams } from "../../Types/Types";
+import { useProductContext } from "../Context/ProductContext";
 
 function GetProduct(id: string) {
   const [product, setProduct] = useState<Product>();
@@ -26,7 +27,42 @@ function GetProduct(id: string) {
 const OneProduct = () => {
   const params = useParams() as ProductsParams;
   const product = GetProduct(params.id);
+  const { cartProduct, setCartProduct } = useProductContext();
+
   console.log(product);
+
+  function handleAddCart() {
+    if (!product) {
+      return;
+    }
+
+    const exist = cartProduct.find((x) => x.id === product.id);
+    if (exist) {
+      setCartProduct(
+        cartProduct.map((x) =>
+          x.id === product.id ? { ...exist, Quantity: exist.Quantity + 1 } : x
+        )
+      );
+    } else {
+      setCartProduct([
+        ...cartProduct,
+        {
+          description: product.description,
+          photoPath: product.photoPath,
+          price: product.price,
+          stock: product.stock,
+          title: product.title,
+          catalogName: product.catalogName,
+          Quantity: 1,
+          id: product.id,
+        } as Product,
+      ]);
+    }
+  }
+
+  if (!product) {
+    return <div>Not found</div>;
+  }
   return (
     <>
       <main>
@@ -54,7 +90,13 @@ const OneProduct = () => {
           </div>
           <div className="card__footer">
             <div className="action">
-              <button type="button">Add to cart</button>
+              <Button
+                onClick={handleAddCart}
+                variant="contained"
+                color="success"
+              >
+                Add to Card
+              </Button>
             </div>
           </div>
         </div>
