@@ -13,7 +13,9 @@ import Button from "@mui/material/Button";
 import ShopCard from "../ShopCard/ShopCard";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import DeleteIcon from "@mui/icons-material/Delete";
+import useProductContext from "../Context/ProductContext";
 import "./Nav.css";
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -83,7 +85,7 @@ const NavBar = () => {
             >
               Store App
             </Typography>
-            <Search>
+            {/* <Search>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -91,7 +93,7 @@ const NavBar = () => {
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
               />
-            </Search>
+            </Search> */}
           </Toolbar>
         </AppBar>
       </Box>

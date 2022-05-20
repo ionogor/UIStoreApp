@@ -1,4 +1,3 @@
-import { SetState } from "immer/dist/internal";
 import React, {
   createContext,
   ReactNode,
@@ -9,6 +8,8 @@ import React, {
 import { Product } from "../../Types/Types";
 
 type ProductContextType = {
+  search: string;
+  setSearch: (value: string) => void;
   cartProduct: Product[];
   setCartProduct: (products: Product[]) => void;
 };
@@ -16,6 +17,8 @@ type ProductContextType = {
 export const ProductContext = createContext<ProductContextType>({
   cartProduct: [],
   setCartProduct: (products: Product[]) => {},
+  search: "",
+  setSearch: (values: string) => {},
 });
 
 export const useProductContext = () => useContext(ProductContext);
@@ -23,11 +26,14 @@ export const useProductContext = () => useContext(ProductContext);
 export default function ProductProvider({ children }: { children: ReactNode }) {
   const [cartProduct, setCartProduct] = useState<Product[]>([]);
 
+  const [search, setSearch] = useState<string>("");
   const handleSetCartProduct = (products: Product[]) =>
     setCartProduct(products);
 
   return (
-    <ProductContext.Provider value={{ cartProduct, setCartProduct }}>
+    <ProductContext.Provider
+      value={{ cartProduct, setCartProduct, search, setSearch }}
+    >
       {children}
     </ProductContext.Provider>
   );

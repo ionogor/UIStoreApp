@@ -13,11 +13,13 @@ import Cabinet from "./components/Cabinet/Cabinet";
 import ShopCart from "./components/ShopCard/ShopCard";
 import Catalogs from "./components/Catalogs/Catalogs";
 import ProductList from "./components/Home/ProductList";
+import ProductProvider from "./components/Context/ProductContext";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
+
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/contacts" element={<Contacts />} />

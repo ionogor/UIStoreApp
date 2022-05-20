@@ -22,7 +22,8 @@ import { Product } from "../../Types/Types";
 // };
 
 const Products = () => {
-  const { cartProduct, setCartProduct } = useProductContext();
+  const { cartProduct, setCartProduct, search, setSearch } =
+    useProductContext();
 
   console.log("CartProduct", cartProduct);
 
