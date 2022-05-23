@@ -7,7 +7,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
 import { useProductContext } from "../Context/ProductContext";
+import Button from "@mui/material/Button";
+import { Product } from "../../Types/Types";
+import "./shopCart.css";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -47,29 +52,122 @@ const rows = [
 
 export default function ShopCard() {
   const { cartProduct, setCartProduct } = useProductContext();
+  const itemPrice = cartProduct.reduce((a, c) => a + c.price * c.Quantity, 0);
+  const taxPrice = itemPrice * 0.2;
+  const shippingPrice = itemPrice > 1000 ? 0 : 100;
+  const total = itemPrice + taxPrice + shippingPrice;
+
   console.log("CartProduct", cartProduct);
+
+  function HandleAddCart(product: Product) {
+    const exist = cartProduct.find((x) => x.id === product.id);
+    if (exist) {
+      setCartProduct(
+        cartProduct.map((x) =>
+          x.id === product.id ? { ...exist, Quantity: exist.Quantity + 1 } : x
+        )
+      );
+    } else {
+      setCartProduct([
+        ...cartProduct,
+        {
+          description: product.description,
+          photoPath: product.photoPath,
+          price: product.price,
+          stock: product.stock,
+          title: product.title,
+          catalogName: product.catalogName,
+          Quantity: 1,
+          id: product.id,
+        } as Product,
+      ]);
+    }
+
+    console.log("Cart:", cartProduct);
+  }
+
+  function HandleDelete(product: Product) {
+    const exist = cartProduct.find((x) => x.id == product.id);
+
+    // if (exist?.Quantity === 1)
+    //   setCartProduct(cartProduct.filter((x) => x.id !== product.id));
+    //   else
+    if (exist) {
+      setCartProduct(
+        cartProduct.map((x) =>
+          x.id === product.id ? { ...exist, Quantity: exist.Quantity - 1 } : x
+        )
+      );
+    }
+    if (exist!.Quantity === 1) {
+      setCartProduct(cartProduct.filter((x) => x.id !== product.id));
+    }
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Description</StyledTableCell>
-            <StyledTableCell align="right">Qantity</StyledTableCell>
+            <StyledTableCell align="right">Qt</StyledTableCell>
             <StyledTableCell align="right">Price</StyledTableCell>
             <StyledTableCell align="right">Total</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.description}>
-              <StyledTableCell component="th" scope="row">
-                {row.description}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.qt}</StyledTableCell>
-              <StyledTableCell align="right">{row.qt}</StyledTableCell>
-              <StyledTableCell align="right">{row.price}</StyledTableCell>
-            </StyledTableRow>
-          ))}
+          {cartProduct.length > 0 ? (
+            cartProduct.map((row) => (
+              <StyledTableRow key={row.id}>
+                <StyledTableCell component="th" scope="row">
+                  {row.description}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  <div style={{ position: "absolute" }}>
+                    <>
+                      <span
+                        onClick={() => HandleDelete(row)}
+                        style={{ cursor: "pointer", alignItems: "center" }}
+                      >
+                        -
+                      </span>
+                    </>
+                    <>
+                      <TextField
+                        variant="filled"
+                        multiline
+                        size="small"
+                        sx={{ width: "40px" }}
+                        type="number"
+                        value={row.Quantity}
+                      ></TextField>
+                    </>
+
+                    <>
+                      <span
+                        onClick={() => HandleAddCart(row)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        +
+                      </span>
+                    </>
+                  </div>
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.price}</StyledTableCell>
+                <StyledTableCell align="right">{itemPrice}</StyledTableCell>
+              </StyledTableRow>
+            ))
+          ) : (
+            <>Emty Basket</>
+          )}
+
+          <div className="totalInfo">
+            <div>Total: {itemPrice} Lei</div>
+            <div>Tax: {taxPrice} Lei</div>
+            <div>Shipp: {shippingPrice} Lei</div>
+          </div>
+
+          <Button onClick={() => (cartProduct.length = 0)}>Cancel Order</Button>
         </TableBody>
       </Table>
     </TableContainer>

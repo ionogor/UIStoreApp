@@ -27,12 +27,18 @@ export default function ProductProvider({ children }: { children: ReactNode }) {
   const [cartProduct, setCartProduct] = useState<Product[]>([]);
 
   const [search, setSearch] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
   const handleSetCartProduct = (products: Product[]) =>
     setCartProduct(products);
 
   return (
     <ProductContext.Provider
-      value={{ cartProduct, setCartProduct, search, setSearch }}
+      value={{
+        cartProduct,
+        setCartProduct,
+        search,
+        setSearch,
+      }}
     >
       {children}
     </ProductContext.Provider>

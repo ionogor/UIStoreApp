@@ -13,10 +13,10 @@ export type ProductsParams = {
   id: string;
 };
 
-type cartProps = {
+export type cartProps = {
   cartItems: Product[];
-  addToCard: () => void;
-  deleteToCard: () => void;
+  addToCard: (value: Product) => void;
+  deleteToCard: (valur: Product) => void;
 };
 
 export type RegisterFormType = {
@@ -43,4 +43,15 @@ export type EditProduct = {
   description: string;
   price: number;
   stock: number;
+};
+
+export type ConversionRate = {
+  time_last_update_utc: Date;
+  time_next_update_utc: Date;
+  conversionRate: Rate[];
+};
+
+export type Rate = {
+  code: string;
+  value: number;
 };

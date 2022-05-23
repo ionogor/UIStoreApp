@@ -134,11 +134,6 @@ const ProductList = () => {
     history(-1);
   };
 
-  const hangleSearchInput = (e: any) => {
-    setSearch(e.target.value);
-  };
-  console.log(search);
-
   useEffect(() => {
     async function getProducts() {
       const response = await fetch(
@@ -222,59 +217,60 @@ const ProductList = () => {
               <StyledTableCell align="center" style={{ width: "300px" }}>
                 Action
                 <Button
-                  sx={{ display: "inline-block", mx: 2 }}
+                  sx={{ display: "inline-block", mx: 10 }}
                   variant="contained"
                   component="span"
                   onClick={handleAddProduct}
                 >
                   Add
                 </Button>
-                <TextField
-                  id="filled-search"
-                  label="Search"
-                  sx={{
-                    backgroundColor: "white",
-                    mx: 1,
-                    position: "relative",
-                    borderRadius: 2,
-                    maxHeight: 1,
-                    color: "secondary",
-                  }}
-                  onChange={hangleSearchInput}
-                />
               </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {products?.map((row) => (
-              <StyledTableRow key={row.id}>
-                <StyledTableCell component="th" scope="row" align="center">
-                  <img src="/img/laptop.png" alt="" style={{ width: "90px" }} />
-                </StyledTableCell>
-                <Typography gutterBottom variant="h5" component="div">
-                  {row.title}
-                </Typography>
-                <StyledTableCell component="th" scope="row" align="center">
-                  <Typography>{row.price}</Typography>
-                </StyledTableCell>
+            {products
+              ?.filter((val) => {
+                if (search == "") {
+                  return val;
+                } else if (
+                  val.title.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return val;
+                }
+              })
+              .map((row) => (
+                <StyledTableRow key={row.id}>
+                  <StyledTableCell component="th" scope="row" align="center">
+                    <img
+                      src="/img/laptop.png"
+                      alt=""
+                      style={{ width: "90px" }}
+                    />
+                  </StyledTableCell>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {row.title}
+                  </Typography>
+                  <StyledTableCell component="th" scope="row" align="center">
+                    <Typography>{row.price}</Typography>
+                  </StyledTableCell>
 
-                <StyledTableCell component="th" scope="row" align="center">
-                  {" "}
-                  <Typography>{row.stock}</Typography>
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row" align="center">
-                  <Button
-                    sx={{ ml: -25 }}
-                    startIcon={<Edit />}
-                    onClick={() => handleClickOpen(row.id)}
-                  ></Button>
-                  <Button
-                    startIcon={<Delete />}
-                    onClick={() => handleDeleteProduct(row.id)}
-                  ></Button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
+                  <StyledTableCell component="th" scope="row" align="center">
+                    {" "}
+                    <Typography>{row.stock}</Typography>
+                  </StyledTableCell>
+                  <StyledTableCell component="th" scope="row" align="center">
+                    <Button
+                      sx={{ ml: -25 }}
+                      startIcon={<Edit />}
+                      onClick={() => handleClickOpen(row.id)}
+                    ></Button>
+                    <Button
+                      startIcon={<Delete />}
+                      onClick={() => handleDeleteProduct(row.id)}
+                    ></Button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

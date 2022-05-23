@@ -21,11 +21,14 @@ import { Product } from "../../Types/Types";
 //   productListDtos: Product[];
 // };
 
-const Products = () => {
+const Products = (props: any) => {
+  const { rate, setRate } = props;
   const { cartProduct, setCartProduct, search, setSearch } =
     useProductContext();
 
-  console.log("CartProduct", cartProduct);
+  //console.log("CartProduct", cartProduct);
+
+  console.log("Rate:", rate);
 
   function useGetProducts(id: string) {
     const [products, setProducts] = useState<Catalogs>();
@@ -43,7 +46,7 @@ const Products = () => {
     return products;
   }
 
-  function handleAddCart(product: Product) {
+  function HandleAddCart(product: Product) {
     const exist = cartProduct.find((x) => x.id === product.id);
     if (exist) {
       setCartProduct(
@@ -75,34 +78,41 @@ const Products = () => {
   return (
     <>
       <div className="wrapper">
-        {products?.productListDtos.map((e) => (
-          <Card key={e.id} className="item" sx={{ maxWidth: 345 }}>
-            <CardActionArea href={`/product/${e.id}`}>
-              <CardMedia
-                component="img"
-                height="140"
-                image="/img/laptop.png"
-                alt="green iguana"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {e.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {e.price}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <Button
-              onClick={() => handleAddCart(e)}
-              variant="contained"
-              color="success"
-            >
-              Add to Card
-            </Button>
-          </Card>
-        ))}{" "}
-        <Link href={"/shop-card"}>ShopCart</Link>
+        {products?.productListDtos
+          .filter((val) => {
+            if (search == "") {
+              return val;
+            } else if (val.title.toLowerCase().includes(search.toLowerCase())) {
+              return val;
+            }
+          })
+          .map((e) => (
+            <Card key={e.id} className="item" sx={{ maxWidth: 345 }}>
+              <CardActionArea href={`/product/${e.id}`}>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image="/img/laptop.png"
+                  alt="green iguana"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {e.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {e.price}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <Button
+                onClick={() => HandleAddCart(e)}
+                variant="contained"
+                color="success"
+              >
+                Add to Card
+              </Button>
+            </Card>
+          ))}{" "}
       </div>
       <Pagination
         className="pagination"
