@@ -128,7 +128,9 @@ const ProductList = () => {
 
   // add method
 
-  const handleAddProduct = () => {};
+  const handleAddProduct = () => {
+    console.log("");
+  };
 
   const handleBackPush = () => {
     history(-1);

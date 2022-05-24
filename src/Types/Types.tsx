@@ -7,6 +7,7 @@ export type Product = {
   catalogName: string;
   Quantity: number;
   id: number;
+  Total: number;
 };
 
 export type ProductsParams = {
@@ -48,7 +49,7 @@ export type EditProduct = {
 export type ConversionRate = {
   time_last_update_utc: Date;
   time_next_update_utc: Date;
-  conversionRate: Rate[];
+  conversionRate: Rate;
 };
 
 export type Rate = {

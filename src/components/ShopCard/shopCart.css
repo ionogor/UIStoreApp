@@ -1,6 +1,25 @@
 .totalInfo {
-  position: absolute;
-  right: 0px;
-  width: 300px;
-  border: 3px solid #73ad21;
+  float: right;
+  width: 100%;
+}
+.order-detail {
+  margin: 10px;
+  justify-items: center;
+  justify-content: center;
+  width: 90%;
+  text-align: center;
+}
+
+.card-content {
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  color: #73ad21;
+  background-color: antiquewhite;
+}
+.card-order {
+  margin-bottom: 10px;
+  display: inline-grid;
+  justify-content: center;
 }

@@ -22,13 +22,13 @@ import { Product } from "../../Types/Types";
 // };
 
 const Products = (props: any) => {
-  const { rate, setRate } = props;
+  const { rate, setRate, mdlRate } = props;
   const { cartProduct, setCartProduct, search, setSearch } =
     useProductContext();
 
   //console.log("CartProduct", cartProduct);
 
-  console.log("Rate:", rate);
+  console.log("RateMDL:", mdlRate);
 
   function useGetProducts(id: string) {
     const [products, setProducts] = useState<Catalogs>();
@@ -101,6 +101,9 @@ const Products = (props: any) => {
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {e.price}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    $ {(e.price / mdlRate).toFixed(0)}
                   </Typography>
                 </CardContent>
               </CardActionArea>

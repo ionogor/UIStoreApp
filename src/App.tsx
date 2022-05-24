@@ -18,16 +18,25 @@ import { ConversionRate, Rate } from "../src/Types/Types";
 import Profile from "./components/ProfileUser/Profile";
 function App() {
   const [rate, setRate] = useState<ConversionRate>();
+  const [mdlRate, setMDLRate] = useState<number>();
+
   useEffect(() => {
     async function getRate() {
       const response = await fetch(
         `https://v6.exchangerate-api.com/v6/f37ba6fb2bd4fa954d2e156a/latest/USD`
       );
       const result = await response.json();
+
       setRate(result);
+
+      setMDLRate(result.conversion_rates.MDL);
     }
     getRate();
   }, []);
+
+  console.log("MDLRate:", mdlRate);
+
+  //console.log("Rate:", rate?.conversionRate);
 
   return (
     <div className="App">
@@ -38,7 +47,7 @@ function App() {
         <Route path="/catalogs" element={<Catalogs />} />
         <Route
           path="/catalogs/:id/products"
-          element={<Products rate={rate} setRate={setRate} />}
+          element={<Products rate={rate} setRate={setRate} mdlRate={mdlRate} />}
         />
         <Route path="/product/:id" element={<OneProduct />} />
         <Route path="/sign" element={<SignIn />} />
